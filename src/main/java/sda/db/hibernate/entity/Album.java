@@ -16,7 +16,7 @@ public class Album {
 
     private String name;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Song> songs = new ArrayList<>();
 
     @OneToOne
@@ -47,6 +47,7 @@ public class Album {
     }
 
     public void addSong(Song song) {
+        song.getAlbum().add(this);
         songs.add(song);
     }
 
@@ -61,10 +62,9 @@ public class Album {
     @Override
     public String toString() {
         return "Album{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", songs: \n" + songs.stream().map(s -> " > " + s.toString()).collect(Collectors.joining("\n")) +
-                "\n, author=" + author +
+                "name='" + name + '\'' +
+                ", songs: " + songs.stream().map(Song::getName).collect(Collectors.toList()) +
+                ", author=" + author +
                 '}';
     }
 }

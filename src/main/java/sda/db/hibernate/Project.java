@@ -29,8 +29,19 @@ public class Project {
         Author author = new Author();
         author.setName("Super Author");
 
+        Song songD = new Song();
+        songD.setName("song D");
+        songD.setAuthor(author);
+
+        Album albumA = createAlbumA(author);
+        albumA.addSong(songD);
+
+        Album albumB = createAlbumB(author);
+        albumB.addSong(songD);
+
         em.persist(author);
-        em.persist(createAlbum(author));
+        em.persist(albumA);
+        em.persist(albumB);
 
         t.commit();
 
@@ -45,7 +56,7 @@ public class Project {
 //        }
     }
 
-    private Album createAlbum(Author author) {
+    private Album createAlbumA(Author author) {
         Song songA = new Song();
         songA.setName("song A");
         songA.setAuthor(author);
@@ -55,10 +66,23 @@ public class Project {
         songB.setAuthor(author);
 
         Album album = new Album();
-        album.setName("New Album");
+        album.setName("Old Album");
         album.setAuthor(author);
         album.addSong(songA);
         album.addSong(songB);
+
+        return album;
+    }
+
+    private Album createAlbumB(Author author) {
+        Song songA = new Song();
+        songA.setName("song C");
+        songA.setAuthor(author);
+
+        Album album = new Album();
+        album.setName("New Album");
+        album.setAuthor(author);
+        album.addSong(songA);
 
         return album;
     }

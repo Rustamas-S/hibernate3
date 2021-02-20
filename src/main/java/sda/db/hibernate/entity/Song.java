@@ -1,7 +1,10 @@
 package sda.db.hibernate.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "songs")
@@ -15,6 +18,9 @@ public class Song {
 
     @OneToOne
     private Author author;
+
+    @ManyToMany
+    private List<Album> album = new ArrayList<>();
 
     public UUID getId() {
         return id;
@@ -40,12 +46,20 @@ public class Song {
         this.author = author;
     }
 
+    public List<Album> getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(List<Album> album) {
+        this.album = album;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", author=" + author +
+                ", album=" + album.stream().map(Album::getName).collect(Collectors.toList()) +
                 '}';
     }
 }
