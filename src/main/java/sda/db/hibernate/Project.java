@@ -29,9 +29,7 @@ public class Project {
         Author author = new Author();
         author.setName("Super Author");
 
-        Song songD = new Song();
-        songD.setName("song D");
-        songD.setAuthor(author);
+        Song songD = new Song("song D", author, 123);
 
         Album albumA = createAlbumA(author);
         albumA.addSong(songD);
@@ -57,13 +55,9 @@ public class Project {
     }
 
     private Album createAlbumA(Author author) {
-        Song songA = new Song();
-        songA.setName("song A");
-        songA.setAuthor(author);
+        Song songA = new Song("song A", author, 123);
 
-        Song songB = new Song();
-        songB.setName("song B");
-        songB.setAuthor(author);
+        Song songB = new Song("song B", author, 123);
 
         Album album = new Album();
         album.setName("Old Album");
@@ -75,9 +69,7 @@ public class Project {
     }
 
     private Album createAlbumB(Author author) {
-        Song songA = new Song();
-        songA.setName("song C");
-        songA.setAuthor(author);
+        Song songA = new Song("song C", author, 123);
 
         Album album = new Album();
         album.setName("New Album");
