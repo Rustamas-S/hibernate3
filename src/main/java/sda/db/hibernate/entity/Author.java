@@ -1,20 +1,20 @@
 package sda.db.hibernate.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "songs")
-public class Song {
+@Table(name = "authors")
+public class Author {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue
     private UUID id;
 
     private String name;
-
-    @OneToOne
-    private Author author;
 
     public UUID getId() {
         return id;
@@ -32,20 +32,11 @@ public class Song {
         this.name = name;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
     @Override
     public String toString() {
-        return "Song{" +
+        return "Author{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", author=" + author +
                 '}';
     }
 }
