@@ -47,7 +47,7 @@ public class Album {
     }
 
     public void addSong(Song song) {
-        song.getAlbum().add(this);
+        song.getAlbums().add(this);
         songs.add(song);
     }
 

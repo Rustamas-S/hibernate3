@@ -20,7 +20,7 @@ public class Song {
     private Author author;
 
     @ManyToMany
-    private List<Album> album = new ArrayList<>();
+    private List<Album> albums = new ArrayList<>();
 
     public UUID getId() {
         return id;
@@ -46,12 +46,12 @@ public class Song {
         this.author = author;
     }
 
-    public List<Album> getAlbum() {
-        return album;
+    public List<Album> getAlbums() {
+        return albums;
     }
 
-    public void setAlbum(List<Album> album) {
-        this.album = album;
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Song {
         return "Song{" +
                 "name='" + name + '\'' +
                 ", author=" + author +
-                ", album=" + album.stream().map(Album::getName).collect(Collectors.toList()) +
+                ", album=" + albums.stream().map(Album::getName).collect(Collectors.toList()) +
                 '}';
     }
 }
