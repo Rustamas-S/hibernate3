@@ -1,8 +1,13 @@
 package sda.db.hibernate;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 public class Project {
 
     public void run() {
-        System.out.println("Hello World!");
+        SessionFactory sessionFactory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .buildSessionFactory();
     }
 }
