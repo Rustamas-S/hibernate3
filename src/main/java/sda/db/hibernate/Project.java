@@ -2,6 +2,7 @@ package sda.db.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import sda.db.hibernate.entity.Album;
 import sda.db.hibernate.entity.Author;
 import sda.db.hibernate.entity.Song;
 
@@ -14,6 +15,7 @@ public class Project {
     public void run() {
         SessionFactory sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Album.class)
                 .addAnnotatedClass(Author.class)
                 .addAnnotatedClass(Song.class)
                 .buildSessionFactory();
@@ -27,17 +29,32 @@ public class Project {
         Author author = new Author();
         author.setName("Super Author");
 
-        Song song = new Song();
-        song.setName("test");
-        song.setAuthor(author);
+        Song songA = new Song();
+        songA.setName("song A");
+        songA.setAuthor(author);
+
+        Song songB = new Song();
+        songB.setName("song B");
+        songB.setAuthor(author);
+
+        Album album = new Album();
+        album.setName("New Album");
+        album.setAuthor(author);
+        album.addSong(songA);
+        album.addSong(songB);
 
         em.persist(author);
-        em.persist(song);
+        em.persist(songA);
+        em.persist(songB);
+        em.persist(album);
 
         t.commit();
 
-        List<Song> songs = em.createQuery("FROM Song s", Song.class).getResultList();
+        List<Song> songs = em.createQuery("FROM Song", Song.class).getResultList();
         songs.forEach(System.out::println);
+
+        List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
+        albums.forEach(System.out::println);
 
 //        try (Session session = sessionFactory.openSession()) {
 //            Query q = session.createQuery("FROM Song s", Song.class);
