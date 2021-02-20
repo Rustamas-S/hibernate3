@@ -8,6 +8,7 @@ import sda.db.hibernate.entity.Song;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.time.Instant;
 import java.util.List;
 
 public class Project {
@@ -29,7 +30,7 @@ public class Project {
         Author author = new Author();
         author.setName("Super Author");
 
-        Song songD = new Song("song D", author, 123);
+        Song songD = new Song("song D", author, 123, Instant.now());
 
         Album albumA = createAlbumA(author);
         albumA.addSong(songD);
@@ -48,16 +49,12 @@ public class Project {
 
         List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
         albums.forEach(System.out::println);
-
-//        try (Session session = sessionFactory.openSession()) {
-//            Query q = session.createQuery("FROM Song s", Song.class);
-//        }
     }
 
     private Album createAlbumA(Author author) {
-        Song songA = new Song("song A", author, 123);
+        Song songA = new Song("song A", author, 123, Instant.now());
 
-        Song songB = new Song("song B", author, 123);
+        Song songB = new Song("song B", author, 123, Instant.now());
 
         Album album = new Album();
         album.setName("Old Album");
@@ -69,7 +66,7 @@ public class Project {
     }
 
     private Album createAlbumB(Author author) {
-        Song songA = new Song("song C", author, 123);
+        Song songA = new Song("song C", author, 123, Instant.now());
 
         Album album = new Album();
         album.setName("New Album");

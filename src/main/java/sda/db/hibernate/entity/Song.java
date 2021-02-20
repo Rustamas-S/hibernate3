@@ -1,14 +1,24 @@
 package sda.db.hibernate.entity;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "songs")
 public class Song {
+
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+                    .withLocale(Locale.forLanguageTag("LT"))
+                    .withZone(ZoneId.systemDefault());
 
     @Id
     @GeneratedValue()
@@ -23,13 +33,17 @@ public class Song {
     @Column(nullable = false)
     private Integer duration;
 
+    @Column(nullable = false)
+    private Instant releaseDate;
+
     @ManyToMany
     private List<Album> albums = new ArrayList<>();
 
-    public Song(String name, Author author, Integer duration) {
+    public Song(String name, Author author, Integer duration, Instant releaseDate) {
         this.name = name;
         this.author = author;
         this.duration = duration;
+        this.releaseDate = releaseDate;
     }
 
     public UUID getId() {
@@ -56,14 +70,6 @@ public class Song {
         this.author = author;
     }
 
-    public List<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
-
     public Integer getDuration() {
         return duration;
     }
@@ -77,13 +83,30 @@ public class Song {
         this.duration = duration;
     }
 
+    public Instant getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Instant releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
                 "name='" + name + '\'' +
                 ", author=" + author +
-                ", album=" + albums.stream().map(Album::getName).collect(Collectors.toList()) +
                 ", duration=" + getDurationString() +
+                ", releaseDate=" + FORMATTER.format(releaseDate) +
+                ", album=" + albums.stream().map(Album::getName).collect(Collectors.toList()) +
                 '}';
     }
 }
