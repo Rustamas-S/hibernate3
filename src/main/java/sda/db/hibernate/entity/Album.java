@@ -16,7 +16,7 @@ public class Album {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Song> songs = new ArrayList<>();
 
     @OneToOne

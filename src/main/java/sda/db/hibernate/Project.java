@@ -29,6 +29,23 @@ public class Project {
         Author author = new Author();
         author.setName("Super Author");
 
+        em.persist(author);
+        em.persist(createAlbum(author));
+
+        t.commit();
+
+        List<Song> songs = em.createQuery("FROM Song", Song.class).getResultList();
+        songs.forEach(System.out::println);
+
+        List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
+        albums.forEach(System.out::println);
+
+//        try (Session session = sessionFactory.openSession()) {
+//            Query q = session.createQuery("FROM Song s", Song.class);
+//        }
+    }
+
+    private Album createAlbum(Author author) {
         Song songA = new Song();
         songA.setName("song A");
         songA.setAuthor(author);
@@ -43,21 +60,6 @@ public class Project {
         album.addSong(songA);
         album.addSong(songB);
 
-        em.persist(author);
-        em.persist(songA);
-        em.persist(songB);
-        em.persist(album);
-
-        t.commit();
-
-        List<Song> songs = em.createQuery("FROM Song", Song.class).getResultList();
-        songs.forEach(System.out::println);
-
-        List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
-        albums.forEach(System.out::println);
-
-//        try (Session session = sessionFactory.openSession()) {
-//            Query q = session.createQuery("FROM Song s", Song.class);
-//        }
+        return album;
     }
 }
