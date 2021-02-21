@@ -9,6 +9,9 @@ public class AgentId implements Serializable {
     private String name;
     private String surname;
 
+    public AgentId() {
+    }
+
     public AgentId(String name, String surname) {
         this.name = name;
         this.surname = surname;
