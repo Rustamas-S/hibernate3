@@ -2,8 +2,12 @@ package sda.db.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import sda.db.hibernate.entity.*;
+import sda.db.hibernate.entity.Agent;
+import sda.db.hibernate.entity.Album;
+import sda.db.hibernate.entity.Author;
+import sda.db.hibernate.entity.Song;
 import sda.db.hibernate.entity.util.AgentId;
+import sda.db.hibernate.repository.SongRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -22,6 +26,7 @@ public class Project {
                 .buildSessionFactory();
 
         EntityManager em = sessionFactory.createEntityManager();
+        SongRepository songRepository = new SongRepository(em);
 
         EntityTransaction t = em.getTransaction();
 
@@ -50,8 +55,7 @@ public class Project {
 
         t.commit();
 
-        List<Song> songs = em.createQuery("FROM Song", Song.class).getResultList();
-        songs.forEach(System.out::println);
+        songRepository.findAll().forEach(System.out::println);
 
         List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
         albums.forEach(System.out::println);
