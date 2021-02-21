@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "songs")
+@SecondaryTable(name = "lyrics")
 public class Song {
 
     private static final DateTimeFormatter FORMATTER =
@@ -35,6 +36,9 @@ public class Song {
 
     @Column(nullable = false)
     private Instant releaseDate;
+
+    @Column(table = "lyrics")
+    private String lyrics;
 
     @ManyToMany
     private List<Album> albums = new ArrayList<>();
@@ -91,6 +95,14 @@ public class Song {
         this.releaseDate = releaseDate;
     }
 
+    public String getLyrics() {
+        return lyrics;
+    }
+
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
+    }
+
     public List<Album> getAlbums() {
         return albums;
     }
@@ -106,7 +118,8 @@ public class Song {
                 ", author=" + author +
                 ", duration=" + getDurationString() +
                 ", releaseDate=" + FORMATTER.format(releaseDate) +
-                ", album=" + albums.stream().map(Album::getName).collect(Collectors.toList()) +
+                ", lyrics=" + lyrics +
+                ", albums=" + albums.stream().map(Album::getName).collect(Collectors.toList()) +
                 '}';
     }
 }

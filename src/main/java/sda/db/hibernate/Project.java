@@ -59,6 +59,7 @@ public class Project {
 
     private Album createAlbumA(Author author) {
         Song songA = new Song("song A", author, 123, Instant.now());
+        songA.setLyrics("some test lyrics");
 
         Song songB = new Song("song B", author, 123, Instant.now());
 
