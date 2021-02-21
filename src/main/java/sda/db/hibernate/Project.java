@@ -66,7 +66,7 @@ public class Project {
     }
 
     private Album createAlbumA(Author author) {
-        Song songA = new Song("song A", author, 123, Instant.now());
+        Song songA = new Song("song A", author, 70, Instant.now());
         songA.setLyrics("some test lyrics");
 
         Song songB = new Song("song B", author, 123, Instant.now());
@@ -106,5 +106,9 @@ public class Project {
         agentRepository.findAll().forEach(System.out::println);
         System.out.println("=========");
         System.out.println(agentRepository.find("Vardenis", "Pavardenis"));
+        System.out.println("=========");
+        songRepository.findLongerThan(50).forEach(System.out::println);
+        System.out.println("=========");
+        System.out.println(songRepository.findLongerThan(150));
     }
 }
