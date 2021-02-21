@@ -3,6 +3,7 @@ package sda.db.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import sda.db.hibernate.entity.*;
+import sda.db.hibernate.entity.util.AgentId;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

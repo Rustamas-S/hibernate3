@@ -1,4 +1,4 @@
-package sda.db.hibernate.entity;
+package sda.db.hibernate.entity.util;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;

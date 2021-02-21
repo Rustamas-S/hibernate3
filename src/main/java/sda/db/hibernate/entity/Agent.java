@@ -1,5 +1,7 @@
 package sda.db.hibernate.entity;
 
+import sda.db.hibernate.entity.util.AgentId;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
