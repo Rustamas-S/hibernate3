@@ -41,26 +41,33 @@ public class Project {
     }
 
     public void run() {
-        Author author = new Author();
-        author.setName("Super Author");
-        authorRepository.save(author);
-
-        Song songD = new Song("song D", author, 123, Instant.now());
-        songRepository.save(songD);
-
-        Album albumA = createAlbumA(author);
-        albumA.addSong(songD);
-        albumRepository.save(albumA);
-
-        Album albumB = createAlbumB(author);
-        albumB.addSong(songD);
-        albumRepository.save(albumB);
-
         Agent agent = new Agent();
         agent.setId(new AgentId("Vardenis", "Pavardenis"));
         agent.setActiveSince(Instant.now());
-        author.setAgent(agent);
         agentRepository.save(agent);
+
+        Author authorA = new Author();
+        authorA.setName("Super Author");
+        authorA.setAgent(agent);
+        authorA.setSalary(1500.00);
+        authorRepository.save(authorA);
+
+        Author authorB = new Author();
+        authorB.setName("Other Author");
+        authorB.setAgent(agent);
+        authorB.setSalary(1234.56);
+        authorRepository.save(authorB);
+
+        Song songD = new Song("song D", authorA, 123, Instant.now());
+        songRepository.save(songD);
+
+        Album albumA = createAlbumA(authorA);
+        albumA.addSong(songD);
+        albumRepository.save(albumA);
+
+        Album albumB = createAlbumB(authorB);
+        albumB.addSong(songD);
+        albumRepository.save(albumB);
 
         print();
     }
@@ -110,5 +117,7 @@ public class Project {
         songRepository.findLongerThan(50).forEach(System.out::println);
         System.out.println("=========");
         System.out.println(songRepository.findLongerThan(150));
+        System.out.println("=========");
+        System.out.println(agentRepository.getTotalAuthorSalaryForAgent("Vardenis", "Pavardenis"));
     }
 }

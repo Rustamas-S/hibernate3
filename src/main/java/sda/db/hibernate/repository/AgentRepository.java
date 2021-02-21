@@ -20,4 +20,14 @@ public class AgentRepository extends AbstractRepository<Agent, AgentId> {
     public List<Agent> findAll() {
         return entityManager.createQuery("FROM Agent", Agent.class).getResultList();
     }
+
+    public Double getTotalAuthorSalaryForAgent(String name, String surname) {
+        return (Double) entityManager.createQuery("" +
+                "SELECT SUM(aa.salary) " +
+                "FROM Agent a " +
+                "JOIN a.authors aa " +
+                "WHERE a.id = ?1")
+                .setParameter(1, new AgentId(name, surname))
+                .getSingleResult();
+    }
 }
