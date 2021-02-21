@@ -14,7 +14,7 @@ public class SongRepository extends AbstractRepository<Song, UUID> {
 
     @Override
     public Song find(UUID uuid) {
-        return null;
+        return entityManager.find(Song.class, uuid);
     }
 
     @Override

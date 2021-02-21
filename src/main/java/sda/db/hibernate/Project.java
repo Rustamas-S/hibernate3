@@ -55,10 +55,15 @@ public class Project {
 
         t.commit();
 
-        songRepository.findAll().forEach(System.out::println);
-
+        System.out.println("=========");
+        List<Song> songs = songRepository.findAll();
+        songs.forEach(System.out::println);
+        System.out.println("=========");
+        System.out.println(songRepository.find(songs.stream().findFirst().get().getId()));
+        System.out.println("=========");
         List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
         albums.forEach(System.out::println);
+        System.out.println("=========");
     }
 
     private Album createAlbumA(Author author) {
@@ -77,12 +82,12 @@ public class Project {
     }
 
     private Album createAlbumB(Author author) {
-        Song songA = new Song("song C", author, 123, Instant.now());
+        Song songC = new Song("song C", author, 123, Instant.now());
 
         Album album = new Album();
         album.setName("New Album");
         album.setAuthor(author);
-        album.addSong(songA);
+        album.addSong(songC);
 
         return album;
     }
