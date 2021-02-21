@@ -1,9 +1,6 @@
 package sda.db.hibernate.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +12,9 @@ public class Author {
     private UUID id;
 
     private String name;
+
+    @ManyToOne
+    private Agent agent;
 
     public UUID getId() {
         return id;
@@ -32,10 +32,19 @@ public class Author {
         this.name = name;
     }
 
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
                 "name='" + name + '\'' +
+                ", agent=" + agent +
                 '}';
     }
 }

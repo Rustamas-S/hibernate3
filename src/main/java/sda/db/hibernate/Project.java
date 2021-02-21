@@ -2,9 +2,7 @@ package sda.db.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import sda.db.hibernate.entity.Album;
-import sda.db.hibernate.entity.Author;
-import sda.db.hibernate.entity.Song;
+import sda.db.hibernate.entity.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -16,6 +14,7 @@ public class Project {
     public void run() {
         SessionFactory sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Agent.class)
                 .addAnnotatedClass(Album.class)
                 .addAnnotatedClass(Author.class)
                 .addAnnotatedClass(Song.class)
@@ -38,6 +37,12 @@ public class Project {
         Album albumB = createAlbumB(author);
         albumB.addSong(songD);
 
+        Agent agent = new Agent();
+        agent.setId(new AgentId("Vardenis", "Pavardenis"));
+        agent.setActiveSince(Instant.now());
+        author.setAgent(agent);
+
+        em.persist(agent);
         em.persist(author);
         em.persist(albumA);
         em.persist(albumB);
