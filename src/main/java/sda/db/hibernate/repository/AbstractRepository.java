@@ -1,16 +1,21 @@
 package sda.db.hibernate.repository;
 
-import sda.db.hibernate.entity.Song;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID> {
 
-    protected EntityManager entityManager;
+    protected final EntityManager entityManager;
+    private final Class<? extends T> entityClass;
 
-    public AbstractRepository(EntityManager entityManager) {
+    public AbstractRepository(EntityManager entityManager, Class<? extends T> entityClass) {
         this.entityManager = entityManager;
+        this.entityClass = entityClass;
+    }
+
+    @Override
+    public T find(ID id) {
+        return entityManager.find(entityClass, id);
     }
 
     @Override

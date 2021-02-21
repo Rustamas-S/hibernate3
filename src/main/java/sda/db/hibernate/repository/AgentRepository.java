@@ -9,12 +9,11 @@ import java.util.List;
 public class AgentRepository extends AbstractRepository<Agent, AgentId> {
 
     public AgentRepository(EntityManager entityManager) {
-        super(entityManager);
+        super(entityManager, Agent.class);
     }
 
-    @Override
-    public Agent find(AgentId agentId) {
-        return entityManager.find(Agent.class, agentId);
+    public Agent find(String name, String surname) {
+        return find(new AgentId(name, surname));
     }
 
     @Override

@@ -71,6 +71,7 @@ public class Project {
         List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
         albums.forEach(System.out::println);
         System.out.println("=========");
+        System.out.println(agentRepository.find("Vardenis", "Pavardenis"));
     }
 
     private Album createAlbumA(Author author) {
