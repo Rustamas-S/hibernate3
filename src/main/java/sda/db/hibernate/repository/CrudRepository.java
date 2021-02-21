@@ -2,7 +2,7 @@ package sda.db.hibernate.repository;
 
 import java.util.List;
 
-public interface Repository<T, ID> {
+public interface CrudRepository<T, ID> {
 
 //    void create(T entity); // CREATE
 

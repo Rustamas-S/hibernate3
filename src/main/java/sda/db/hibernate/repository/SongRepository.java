@@ -21,9 +21,4 @@ public class SongRepository extends AbstractRepository<Song, UUID> {
     public List<Song> findAll() {
         return entityManager.createQuery("FROM Song", Song.class).getResultList();
     }
-
-    @Override
-    public void delete(Song entity) {
-
-    }
 }

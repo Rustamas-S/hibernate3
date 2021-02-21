@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 public class Project {
 
@@ -59,7 +60,12 @@ public class Project {
         List<Song> songs = songRepository.findAll();
         songs.forEach(System.out::println);
         System.out.println("=========");
-        System.out.println(songRepository.find(songs.stream().findFirst().get().getId()));
+        Song songA = songs.stream().findFirst().get();
+        songA.setLyrics("some other lyrics");
+        songRepository.save(songA);
+        System.out.println(songRepository.find(songA.getId()));
+        songRepository.delete(songA);
+        System.out.println(songRepository.find(songA.getId()));
         System.out.println("=========");
         List<Album> albums = em.createQuery("FROM Album", Album.class).getResultList();
         albums.forEach(System.out::println);

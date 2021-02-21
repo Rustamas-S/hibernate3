@@ -1,9 +1,11 @@
 package sda.db.hibernate.repository;
 
+import sda.db.hibernate.entity.Song;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-public abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
+public abstract class AbstractRepository<T, ID> implements CrudRepository<T, ID> {
 
     protected EntityManager entityManager;
 
@@ -22,5 +24,10 @@ public abstract class AbstractRepository<T, ID> implements Repository<T, ID> {
         if (!isTransactionActive) {
             transaction.commit();
         }
+    }
+
+    @Override
+    public void delete(T entity) {
+        entityManager.remove(entity);
     }
 }
