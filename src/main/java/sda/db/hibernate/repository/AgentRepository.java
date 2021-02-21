@@ -18,6 +18,6 @@ public class AgentRepository extends AbstractRepository<Agent, AgentId> {
 
     @Override
     public List<Agent> findAll() {
-        return entityManager.createQuery("FROM agent", Agent.class).getResultList();
+        return entityManager.createQuery("FROM Agent", Agent.class).getResultList();
     }
 }

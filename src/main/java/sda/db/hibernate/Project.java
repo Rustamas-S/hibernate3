@@ -8,6 +8,7 @@ import sda.db.hibernate.entity.Author;
 import sda.db.hibernate.entity.Song;
 import sda.db.hibernate.entity.util.AgentId;
 import sda.db.hibernate.repository.AgentRepository;
+import sda.db.hibernate.repository.AuthorRepository;
 import sda.db.hibernate.repository.SongRepository;
 
 import javax.persistence.EntityManager;
@@ -28,6 +29,7 @@ public class Project {
 
         EntityManager em = sessionFactory.createEntityManager();
         AgentRepository agentRepository = new AgentRepository(em);
+        AuthorRepository authorRepository = new AuthorRepository(em);
         SongRepository songRepository = new SongRepository(em);
 
         EntityTransaction t = em.getTransaction();
@@ -51,7 +53,7 @@ public class Project {
         author.setAgent(agent);
         agentRepository.save(agent);
 
-        em.persist(author);
+        authorRepository.save(author);
         em.persist(albumA);
         em.persist(albumB);
 
