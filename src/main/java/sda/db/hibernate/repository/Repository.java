@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Repository<T, ID> {
 
-    void create(T entity); // CREATE
+//    void create(T entity); // CREATE
 
     T find(ID id);         // READ
 

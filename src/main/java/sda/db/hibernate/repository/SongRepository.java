@@ -13,11 +13,6 @@ public class SongRepository extends AbstractRepository<Song, UUID> {
     }
 
     @Override
-    public void create(Song entity) {
-
-    }
-
-    @Override
     public Song find(UUID uuid) {
         return null;
     }
@@ -25,11 +20,6 @@ public class SongRepository extends AbstractRepository<Song, UUID> {
     @Override
     public List<Song> findAll() {
         return entityManager.createQuery("FROM Song", Song.class).getResultList();
-    }
-
-    @Override
-    public void save(Song entity) {
-
     }
 
     @Override
