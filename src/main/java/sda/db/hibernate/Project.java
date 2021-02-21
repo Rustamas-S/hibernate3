@@ -7,13 +7,13 @@ import sda.db.hibernate.entity.Album;
 import sda.db.hibernate.entity.Author;
 import sda.db.hibernate.entity.Song;
 import sda.db.hibernate.entity.util.AgentId;
+import sda.db.hibernate.repository.AgentRepository;
 import sda.db.hibernate.repository.SongRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 public class Project {
 
@@ -27,6 +27,7 @@ public class Project {
                 .buildSessionFactory();
 
         EntityManager em = sessionFactory.createEntityManager();
+        AgentRepository agentRepository = new AgentRepository(em);
         SongRepository songRepository = new SongRepository(em);
 
         EntityTransaction t = em.getTransaction();
@@ -48,8 +49,8 @@ public class Project {
         agent.setId(new AgentId("Vardenis", "Pavardenis"));
         agent.setActiveSince(Instant.now());
         author.setAgent(agent);
+        agentRepository.save(agent);
 
-        em.persist(agent);
         em.persist(author);
         em.persist(albumA);
         em.persist(albumB);
